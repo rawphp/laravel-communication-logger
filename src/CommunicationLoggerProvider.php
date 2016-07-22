@@ -42,6 +42,9 @@ class CommunicationLoggerProvider extends ServiceProvider
      */
     public function register()
     {
+        $configPath = __DIR__ . '/../config/communication-logger.php';
+        $this->mergeConfigFrom($configPath, 'communication-logger');
+
         /** @var array $config */
         $config = $this->app['config']['communication-logger'];
 
