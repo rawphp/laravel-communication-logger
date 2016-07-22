@@ -1,0 +1,33 @@
+{
+  "name": "rawphp/laravel-communication-logger",
+  "description": "Communication logger for Laravel PHP applications.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tom Kaczocha",
+      "email": "tom@crazydev.org"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "ramsey/uuid": "^3.4",
+    "illuminate/support": "^5.2",
+    "rawphp/communication-logger": "dev-master"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "3.0.0-beta2",
+    "sebastian/phpcpd": "^2.0",
+    "squizlabs/php_codesniffer": "^2.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "RawPHP\\LaravelCommunicationLogger\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "preferred-install": "dist"
+  }
+}

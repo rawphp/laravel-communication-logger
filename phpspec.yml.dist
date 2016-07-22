@@ -1,0 +1,5 @@
+suites:
+  Library:
+    namespace: RawPHP\LaravelCommunicationLogger
+    psr4_prefix: RawPHP\LaravelCommunicationLogger
+    spec_path: tests
