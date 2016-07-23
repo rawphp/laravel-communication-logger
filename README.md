@@ -1,5 +1,7 @@
 # Laravel Communication Provider
 
+[![Build Status](https://travis-ci.org/rawphp/laravel-communication-logger.svg?branch=master)](https://travis-ci.org/rawphp/laravel-communication-logger)
+
 ## 1. Install
 
 As always, we need to pull in some dependencies through Composer.
