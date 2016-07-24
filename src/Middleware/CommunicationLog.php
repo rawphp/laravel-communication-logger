@@ -3,12 +3,14 @@
 namespace RawPHP\LaravelCommunicationLogger\Middleware;
 
 use Closure;
+use Exception;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Http\Request as LaravelRequest;
 use Illuminate\Http\Response as LaravelResponse;
 use RawPHP\CommunicationLogger\CommunicationLogger;
+use RawPHP\CommunicationLogger\Model\IEvent;
 use RawPHP\CommunicationLogger\Util\CommunicationExtractor;
 
 /**
@@ -61,9 +63,26 @@ class CommunicationLog
             ''
         );
 
-        /** @var LaravelResponse $response */
-        $response = $next($request);
+        $response = null;
 
+        try {
+            /** @var LaravelResponse $response */
+            $response = $next($request);
+        } catch (Exception $e) {
+            $response = LaravelResponse::create($e->getMessage(), 500);
+        } finally {
+            $this->logResponse($response, $event);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param LaravelResponse $response
+     * @param IEvent $event
+     */
+    protected function logResponse(LaravelResponse $response, IEvent $event)
+    {
         $message = (new Response(
             $response->getStatusCode(),
             $response->headers->all(),
@@ -73,7 +92,5 @@ class CommunicationLog
         $result = $this->extractor->getResponse($message);
 
         $this->logger->end($event, $result['response']);
-
-        return $response;
     }
 }
