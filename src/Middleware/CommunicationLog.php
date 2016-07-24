@@ -52,8 +52,10 @@ class CommunicationLog
             $request->getContent()
         ));
 
+        $result = $this->extractor->getRequest($message);
+
         $event = $this->logger->begin(
-            $this->extractor->getRequest($message),
+            $result['request'],
             $request->getUri(),
             $request->getMethod(),
             ''
@@ -68,7 +70,9 @@ class CommunicationLog
             $response->getContent()
         ));
 
-        $this->logger->end($event, $this->extractor->getResponse($message));
+        $result = $this->extractor->getResponse($message);
+
+        $this->logger->end($event, $result['response']);
 
         return $response;
     }

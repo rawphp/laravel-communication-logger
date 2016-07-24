@@ -45,8 +45,12 @@ class CommunicationLogSpec extends ObjectBehavior
             return new Response();
         };
 
-        $extractor->getRequest(Argument::type(GuzzleRequest::class))->shouldBeCalled()->willReturn('request');
-        $extractor->getResponse(Argument::type(GuzzleResponse::class))->shouldBeCalled()->willReturn('response');
+        $extractor->getRequest(Argument::type(GuzzleRequest::class))
+                  ->shouldBeCalled()
+                  ->willReturn(['request' => 'request']);
+        $extractor->getResponse(Argument::type(GuzzleResponse::class))
+                  ->shouldBeCalled()
+                  ->willReturn(['response' => 'response']);
 
         $logger->begin('request', 'http://example.com', 'POST', '')->shouldBeCalled()->willReturn($event);
         $logger->end($event, 'response')->shouldBeCalled();
