@@ -13,10 +13,10 @@
     "php": ">=5.6",
     "ramsey/uuid": "^3.4",
     "illuminate/support": "^5.2",
-    "rawphp/communication-logger": "^0.1"
+    "rawphp/communication-logger": "^0"
   },
   "require-dev": {
-    "phpspec/phpspec": "3.0.0-beta2",
+    "phpspec/phpspec": "^3.0.0",
     "sebastian/phpcpd": "^2.0",
     "squizlabs/php_codesniffer": "^2.6",
     "satooshi/php-coveralls": "^1.0"

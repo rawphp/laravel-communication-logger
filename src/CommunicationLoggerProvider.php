@@ -10,9 +10,11 @@ use RawPHP\CommunicationLogger\Adapter\Factory\ConnectionFactory;
 use RawPHP\CommunicationLogger\Adapter\FileAdapter;
 use RawPHP\CommunicationLogger\Adapter\IAdapter;
 use RawPHP\CommunicationLogger\Adapter\MemoryAdapter;
+use RawPHP\CommunicationLogger\CommunicationLogger;
 use RawPHP\CommunicationLogger\Factory\EventFactory;
 use RawPHP\CommunicationLogger\Factory\IEventFactory;
-use RawPHP\CommunicationLogger\Logger;
+use RawPHP\CommunicationLogger\Util\CommunicationExtractor;
+use RawPHP\CommunicationLogger\Util\HttpParser;
 use RawPHP\CommunicationLogger\Util\IReader;
 use RawPHP\CommunicationLogger\Util\IWriter;
 use RawPHP\CommunicationLogger\Util\Reader;
@@ -51,9 +53,10 @@ class CommunicationLoggerProvider extends ServiceProvider
         $this->registerEventFactory();
         $this->registerDatabaseAdapterFactory();
         $this->registerStoreAdapter($config);
+        $this->registerHelpers();
 
-        $this->app->bind(Logger::class, function () {
-            return new Logger(
+        $this->app->bind(CommunicationLogger::class, function () {
+            return new CommunicationLogger(
                 $this->app[IAdapter::class],
                 $this->app[IEventFactory::class]
             );
@@ -150,6 +153,20 @@ class CommunicationLoggerProvider extends ServiceProvider
                         $logger
                     );
             }
+        });
+    }
+
+    /**
+     * Register helpers.
+     */
+    protected function registerHelpers()
+    {
+        $this->app->bind(HttpParser::class, function () {
+            return new HttpParser();
+        });
+
+        $this->app->bind(CommunicationExtractor::class, function () {
+            return new CommunicationExtractor($this->app->make(HttpParser::class));
         });
     }
 }
