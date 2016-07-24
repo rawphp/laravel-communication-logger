@@ -1086,16 +1086,16 @@
         },
         {
             "name": "rawphp/communication-logger",
-            "version": "0.2.2",
+            "version": "0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rawphp/communication-logger.git",
-                "reference": "8d6cba0b41a5e929904a337d5cfd6e4039b85189"
+                "reference": "4b66a20d23d908568a6808ac692706c2cf1df77b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rawphp/communication-logger/zipball/8d6cba0b41a5e929904a337d5cfd6e4039b85189",
-                "reference": "8d6cba0b41a5e929904a337d5cfd6e4039b85189",
+                "url": "https://api.github.com/repos/rawphp/communication-logger/zipball/4b66a20d23d908568a6808ac692706c2cf1df77b",
+                "reference": "4b66a20d23d908568a6808ac692706c2cf1df77b",
                 "shasum": ""
             },
             "require": {
@@ -1127,7 +1127,7 @@
                 }
             ],
             "description": "Communication logger for PHP applications.",
-            "time": "2016-07-24 06:19:29"
+            "time": "2016-07-24 06:46:31"
         },
         {
             "name": "swiftmailer/swiftmailer",

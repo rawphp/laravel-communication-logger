@@ -7,6 +7,7 @@ use Exception;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Uri;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request as LaravelRequest;
 use Illuminate\Http\Response as LaravelResponse;
 use RawPHP\CommunicationLogger\CommunicationLogger;
@@ -78,16 +79,24 @@ class CommunicationLog
     }
 
     /**
-     * @param LaravelResponse $response
+     * Log the response.
+     *
+     * @param mixed $response
      * @param IEvent $event
      */
-    protected function logResponse(LaravelResponse $response, IEvent $event)
+    protected function logResponse($response, IEvent $event)
     {
-        $message = (new Response(
-            $response->getStatusCode(),
-            $response->headers->all(),
-            $response->getContent()
-        ));
+        $content = '';
+
+        if (is_string($response)) {
+            $content = $response;
+        } elseif ($response instanceof LaravelResponse) {
+            $content = $response->getContent();
+        } elseif ($response instanceof JsonResponse) {
+            $content = $response->getData();
+        }
+
+        $message = new Response($response->getStatusCode(), $response->headers->all(), $content);
 
         $result = $this->extractor->getResponse($message);
 
