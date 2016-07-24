@@ -90,10 +90,8 @@ class CommunicationLog
 
         if (is_string($response)) {
             $content = $response;
-        } elseif ($response instanceof LaravelResponse) {
+        } elseif ($response instanceof LaravelResponse || $response instanceof JsonResponse) {
             $content = $response->getContent();
-        } elseif ($response instanceof JsonResponse) {
-            $content = $response->getData();
         }
 
         $message = new Response($response->getStatusCode(), $response->headers->all(), $content);
